@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: v1/create_wallet_table.yaml
+      relativeToChangelogFile: true

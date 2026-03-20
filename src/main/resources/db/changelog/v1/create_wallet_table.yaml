@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: itk-wallet
+      comment: "Create wallets table"
+      changes:
+        - createTable:
+            tableName: wallets
+            remarks: "Table for storing wallet information"
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  remarks: "Primary key, auto-generated UUID"
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_wallets
+                    nullable: false
+
+              - column:
+                  name: balance
+                  type: DECIMAL(19, 2)
+                  defaultValueNumeric: 0.00
+                  remarks: "Current wallet balance"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+                  remarks: "Optimistic locking version"
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            indexName: idx_wallets_id
+            tableName: wallets
+            unique: true
+            columns:
+              - column:
+                  name: id
+
+      rollback:
+        - dropTable:
+            tableName: wallets

@@ -1,0 +1,36 @@
+package com.itk.wallet.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
+import java.util.UUID;
+
+public class WalletRequest {
+
+    @NotNull(message = "walletId is required")
+    @JsonProperty("walletId")
+    private UUID walletId;
+
+    @NotNull(message = "operationType is required")
+    @JsonProperty("operationType")
+    private OperationType operationType;
+
+    @NotNull(message = "amount is required")
+    @Positive(message = "amount must be positive")
+    @JsonProperty("amount")
+    private BigDecimal amount;
+
+    public UUID getWalletId() { return walletId; }
+    public void setWalletId(UUID walletId) { this.walletId = walletId; }
+
+    public OperationType getOperationType() { return operationType; }
+    public void setOperationType(OperationType operationType) { this.operationType = operationType; }
+
+    public BigDecimal getAmount() { return amount; }
+    public void setAmount(BigDecimal amount) { this.amount = amount; }
+
+    public enum OperationType {
+        DEPOSIT, WITHDRAW
+    }
+}
